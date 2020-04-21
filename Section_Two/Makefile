@@ -9,8 +9,9 @@ SECTION_TWO_PATH = ~/ca2/Section_Two
 # Runs task 1, perform a regex query using grep to get all valid colour codes (6 and 8 chars long)
 # Next I pass this list as an argument to a custom C program that adds an ff for all missing alpha values
 run-task-1: task-1.c
-	${CC} ${SECTION_TWO_PATH}/task-1.c -o ${SECTION_TWO_PATH}/build/task-1.exe ${FLAGS}
-	${SECTION_TWO_PATH}/build/task-1.exe $(grep -Eo '#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$' ${SECTION_TWO_PATH}/colours.txt)
+	 ${CC} ./task-1.c -o ./build/task-1.exe ${FLAGS}
+
+	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1.exe
 
 # Runs task 4, needs access to dkit.html file from previous step, takes first and last line of the file
 # and removes <> for each line and replaces them with [] respectively. Lastly, the lines are sorted in reverse.

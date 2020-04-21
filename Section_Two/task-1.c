@@ -1,24 +1,27 @@
+#define VALID_OPTIONS 25
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
-//https://stackoverflow.com/questions/7652293/how-do-i-dynamically-allocate-an-array-of-strings-in-c
 int main(int argc, char * argv[]) {
-	char **colours = malloc(26 * sizeof(char *));
-	int length = 0;
+	char colours[VALID_OPTIONS][20];
+	char colour[11];
 
-	for(int i = 0; i < 26; i++) {
-		colours[i] = (char *)malloc(26+1);
-	}
+	//We loop 25 times, (the ammount of correct colour codes)
+	for(int i = 0; i < VALID_OPTIONS; i++) {
+		//Withdraw the values from stdin
+		fgets(colour, 11, stdin);
 
-	for(int i = 1; i < argc; i++) {
-		length = strlen(argv[i]);
+		//Remove the \n at the end of the string literal so we can append 'ff'
+		strtok(colour, "\n");
 
-		if(length == 7) {
-			strcat(colours[i], argv[i]);
+		//If the string legth is 7 (counting '\0'), add placeholder alpha value
+		if(strlen(colour) == 7) {
+			strcpy(colours[i], colour);
 			strcat(colours[i], "ff");
 		} else {
-			strcat(colours[i], argv[i]);
+			strcpy(colours[i], colour);
 		}
 
 		printf("%s\n", colours[i]);
