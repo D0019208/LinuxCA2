@@ -6,6 +6,14 @@ SECTION_ONE_PATH = ~/ca2/Section_One
 # target: dependencies
 # 	command
 
+# Runs task 1, generates the string and counts the number of words in this string
+run-task-1:
+	printf "The quick brown fox jumps over the lazy dog\n" | wc -w
+
+# Runs task 2, generates the string and converts all characters to uppercase
+run-task-2:
+	printf "The quick brown fox jumps over the lazy dog\n" | tr [:lower:] [:upper:]
+
 # Runs task 3, downloads the DKIT home page as .html file
 run-task-3:
 	curl https://www.dkit.ie -o dkit.html
