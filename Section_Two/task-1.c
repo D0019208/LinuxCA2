@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(int argc, char * argv[]) {
+int main() {
 	char colours[VALID_OPTIONS][20];
 	char colour[11];
 
