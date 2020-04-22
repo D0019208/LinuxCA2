@@ -1,0 +1,26 @@
+#define VALID_OPTIONS 25
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+	char colours[VALID_OPTIONS][2];
+	char colour[2];
+
+	//We loop 25 times, (the ammount of correct colour codes)
+	for(int i = 0; i < VALID_OPTIONS; i++) {
+		//Withdraw the values from stdin
+		fgets(colour, 2, stdin);
+
+		//Remove the \n at the end of the string literal so we can append 'ff'
+		strtok(colour, "\n");
+		strcpy(colours[i], colour);
+
+		printf("%s", colours[i]);
+
+		
+	}
+
+	return 0;
+}
