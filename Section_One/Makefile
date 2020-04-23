@@ -15,12 +15,12 @@ run-task-2:
 
 # Runs task 3, downloads the DKIT home page as .html file
 run-task-3:
-	curl https://www.dkit.ie -o dkit.html
+	curl https://www.dkit.ie -o dkit.html && ls
 
 # Runs task 4, needs access to dkit.html file from previous step, takes first and last line of the file
 # and removes <> for each line and replaces them with [] respectively. Lastly, the lines are sorted in reverse.
 run-task-4: run-task-3
-	touch ./mangled.txt && head -1 dkit.html | tr '<>' '[]' >> ./mangled.txt && tail -1 dkit.html | tr '<>' '[]' >> ./mangled.txt && sort -r -o ./mangled.txt ./mangled.txt
+	head -1 dkit.html | tr '<>' '[]' > ./mangled.txt && tail -1 dkit.html | tr '<>' '[]' >> ./mangled.txt && sort -r -o ./mangled.txt ./mangled.txt && ls
 
 # Cleaers the enviornment from old files
 clear:
