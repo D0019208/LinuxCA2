@@ -6,3 +6,8 @@ run-task-1:
 # and also I use 'uniq' to only display unique IP adderesses
 run-task-2:
 	cat ./access.log | grep -E -o '[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}' | uniq
+
+# Runs task 3, I use 'cat' to read 'access.log' file, then I use 'grep' to find lines with 404 status
+# and then I use grep again to only print the 'REQUEST' part, I filter it using regex
+run-task-3:
+	cat ./access.log | grep -h '[4][0][4]' | grep -E -o '\"[A-Za-z0-9 /.-]+\"'
