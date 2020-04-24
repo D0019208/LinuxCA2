@@ -3,3 +3,6 @@
 # and also I use 'uniq' to only display unique IP adderesses
 run-task-2:
 	cat ./access.log | grep -E -o '[0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}[.][0-9]{1,3}' | uniq
+
+run-task-3:
+	cat ./access.log | grep -E -o '[4][0][4]'
