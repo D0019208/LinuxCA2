@@ -1,6 +1,3 @@
-#define SPLIT_SIZE 100
-#define VALID_OPTIONS 25
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -14,19 +11,16 @@ struct RGBA {
 };
 
 void add_to_rgba(int i, struct RGBA *rgba, long long decimal, int counter) {
-	if(i < 25) {
-		rgba->r = decimal;
-	} else if (i < 50) {
-	  rgba->g = decimal;
-	} else if (i < 75) {
-	  rgba->b = decimal;
-	} else if(i < 99) {
-		rgba->a = (double) decimal / 255;
-	}
+	int check = counter / 4;
 
-	//Add last value to the last struct
-	if(i == counter - 1) {
-     rgba->a = (double) decimal / 255;
+	if(i < check) {
+		rgba->r = decimal;
+	} else if (i < check * 2) {
+	  rgba->g = decimal;
+	} else if (i < check * 3) {
+	  rgba->b = decimal;
+	} else if(i < check * 4) {
+		rgba->a = (double) decimal / 255;
 	}
 }
 
