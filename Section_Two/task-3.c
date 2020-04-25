@@ -30,27 +30,8 @@ void add_to_rgba(int i, int new_rgba, struct RGBA rgba_arr[VALID_OPTIONS], long 
 	}
 }
 
-//Function that implements bubble sort to sort struct array by alpha value in ascending order
-void sort_rgba(struct RGBA rgba_arr[VALID_OPTIONS]) {
-	double temp;
-
-	for(int i = 0; i < VALID_OPTIONS; i++) {
-		for(int j = i + 1; j < VALID_OPTIONS; j++) {
-			if(rgba_arr[i].a > rgba_arr[j].a) {
-				temp = rgba_arr[i].a;
-
-				rgba_arr[i].a = rgba_arr[j].a;
-				rgba_arr[j].a = temp;
-			}
-		}
-	}
-}
-
 //Function that prints RGBA values in the format 'rgba(R,G,B,A)' in ascending order
 void print_rgba(struct RGBA rgba_arr[VALID_OPTIONS]) {
-	//Sort the struct array in ascending order by the alpha value
-	sort_rgba(rgba_arr);
-
 	//Loop through the struct array and print
 	for(int i = 0; i < VALID_OPTIONS; i++) {
 	   //If the alpha value is NOT 0, we display the alpha value to 16 decimal places
@@ -65,7 +46,6 @@ void print_rgba(struct RGBA rgba_arr[VALID_OPTIONS]) {
 int main() {
 	struct RGBA rgba_arr[VALID_OPTIONS];
 	char colour[4];
-	int rgba_cntr = 0;
 	int new_rgba = 0;
 	long long decimal;
 
