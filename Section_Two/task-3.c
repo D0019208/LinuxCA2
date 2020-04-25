@@ -13,70 +13,84 @@ struct RGBA {
 	double a;
 };
 
-void add_to_rgba(int i, int new_rgba, struct RGBA rgba_arr[VALID_OPTIONS], long long decimal) {
+void add_to_rgba(int i, struct RGBA *rgba, long long decimal, int counter) {
 	if(i < 25) {
-		rgba_arr[new_rgba].r = decimal;
+		rgba->r = decimal;
 	} else if (i < 50) {
-	  rgba_arr[new_rgba].g = decimal;
+	  rgba->g = decimal;
 	} else if (i < 75) {
-	  rgba_arr[new_rgba].b = decimal;
+	  rgba->b = decimal;
 	} else if(i < 99) {
-		rgba_arr[new_rgba].a = (double) decimal / 255;
+		rgba->a = (double) decimal / 255;
 	}
 
 	//Add last value to the last struct
-	if(i == SPLIT_SIZE - 1) {
-     rgba_arr[new_rgba].a = (double) decimal / 255;
+	if(i == counter - 1) {
+     rgba->a = (double) decimal / 255;
 	}
 }
 
 //Function that prints RGBA values in the format 'rgba(R,G,B,A)' in ascending order
-void print_rgba(struct RGBA rgba_arr[VALID_OPTIONS]) {
+void print_rgba(int uniq_col_num, struct RGBA *rgba_arr) {
+	struct RGBA rgba;
+
 	//Loop through the struct array and print
-	for(int i = 0; i < VALID_OPTIONS; i++) {
+	for(int i = 0; i < uniq_col_num; i++) {
+		 rgba = rgba_arr[i];
 	   //If the alpha value is NOT 0, we display the alpha value to 16 decimal places
-	   if(rgba_arr[i].a != 0 && rgba_arr[i].a < 1) {
-	     printf("rgba(%lld, %lld, %lld, %.16f)\n", rgba_arr[i].r, rgba_arr[i].g, rgba_arr[i].b, rgba_arr[i].a);
+	   if(rgba.a != 0 && rgba.a < 1) {
+	     printf("rgba(%lld, %lld, %lld, %.16f)\n", rgba.r, rgba.g, rgba.b, rgba.a);
 	   } else {
-	     printf("rgba(%lld, %lld, %lld, %.0f)\n", rgba_arr[i].r, rgba_arr[i].g, rgba_arr[i].b, rgba_arr[i].a);
+	     printf("rgba(%lld, %lld, %lld, %.0f)\n", rgba.r, rgba.g, rgba.b, rgba.a);
 	   }
 	}
 }
 
 int main() {
-	struct RGBA rgba_arr[VALID_OPTIONS];
+	int counter = 0;
+	int uniq_col_num = 0;
+	long long *all_data = malloc(1000);
 	char colour[4];
 	int new_rgba = 0;
 	long long decimal;
 
-	//We loop 100 times (4 sections in RGBA, 4 x 25 valid colour codes = 100)
-	for(int i = 0; i < SPLIT_SIZE; i++) {
-		//Withdraw the values from stdin
-		fgets(colour, 4, stdin);
-
+	while(fgets(colour, 4, stdin) != NULL) {
 		//Remove the \n at the end of the string literal so we can append 'ff'
 		strtok(colour, "\n");
 
 		//Turn hex number to decimal
-		decimal = strtol(colour, NULL, 16);
+		decimal = strtoll(colour, NULL, 16);
 
+		//Add decimal value to the array of data
+		all_data[counter] = decimal;
+		counter++;
+	}
+
+	/*To get the number of unique colors we have, we devide the total number of entries by 4
+		as all colours have 4 sections R,G,B,A and the file has them all split.
+	*/
+	uniq_col_num = counter / 4;
+
+	struct RGBA *rgba_arr = malloc(uniq_col_num * sizeof(struct RGBA));
+
+	for(int i = 0; i < counter; i++) {
 		/*Once we have finished filling in 1 section, start again by reseting the counter
 		  to add in the next section. E.G. If we filled in R value for all 25 structs, we now
-		  fill in the G value.
+	    fill in the G value.
 		*/
-		if(i % 25 == 0 && i != 0) {
+		if(i % uniq_col_num == 0 && i != 0) {
 			new_rgba = 0;
 		}
 
 		//Check what section we in (R, G, B or A) and add value to that section of struct
-		add_to_rgba(i, new_rgba, rgba_arr, decimal);
+		add_to_rgba(i, &rgba_arr[new_rgba], all_data[i], counter);
 
 		//Add to next struct
 		new_rgba++;
 	}
 
 	//Loop through the struct and print the RGBA values
-	print_rgba(rgba_arr);
+	print_rgba(uniq_col_num, rgba_arr);
 
 	return 0;
 }
