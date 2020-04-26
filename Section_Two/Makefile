@@ -20,14 +20,18 @@ build-task-2: task-2.c
 build-task-3: task-3.c
 	mkdir -p build && ${CC} ./task-3.c -o ./build/task-3 ${FLAGS}
 
+# Description: Creates the text file containing the valid colour codes
+create-colours-valid: build-task-1
+	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 > colours-valid.txt
+
 # Description: Runs task 1 by performing regular expression on the colours.txt file to get all
 # valid colour codes and passes them to task-1.exe to append 'ff' for the alpha value
 # for 6 digit colour codes. For simplicity, we then create a new text file 'colours-valid.txt'
 # to store these values so we do not have to run task 1 constantly
 #
-# Requirements: Task 1 must be built.
-run-task-1: build-task-1
-	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 > colours-valid.txt && cat ./colours-valid.txt
+# Requirements: create-colours-valid command must be ran.
+run-task-1: create-colours-valid
+	cat ./colours-valid.txt
 
 # Description: Runs task 2 by utilizing task 1's 'colours-valid.txt' that contains all valid colour codes.
 # We then get the green value using 'cut', the results then being passed to task-2.exe
@@ -35,7 +39,7 @@ run-task-1: build-task-1
 #
 # Requirements: Task 1 and 2 must both be built.
 
-run-task-2: run-task-1 build-task-2
+run-task-2: create-colours-valid build-task-2
 	cat ./colours-valid.txt | cut -c4-5 | ./build/task-2 && rm colours-valid.txt
 
 # Description: Runs task 3 by utilizing task 1's 'colours-valid.txt'. This command proceeds to split
