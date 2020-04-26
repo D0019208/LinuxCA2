@@ -10,19 +10,19 @@ SECTION_TWO_PATH = ~/ca2/Section_Two
 #
 # Requirements: task-1.c
 build-task-1: task-1.c
-	${CC} ./task-1.c -o ./build/task-1 ${FLAGS}
+	mkdir -p build && ${CC} ./task-1.c -o ./build/task-1 ${FLAGS}
 
 # Description: Command to build task-2.c
 #
 # Requirements: task-2.c
 build-task-2: task-2.c
-	${CC} ./task-2.c -o ./build/task-2 ${FLAGS}
+	mkdir -p build && ${CC} ./task-2.c -o ./build/task-2 ${FLAGS}
 
 # Description: Command to build task-3.c
 #
 # Requirements: task-3.c
 build-task-3: task-3.c
-	${CC} ./task-3.c -o ./build/task-3 ${FLAGS}
+	mkdir -p build && ${CC} ./task-3.c -o ./build/task-3 ${FLAGS}
 
 # Description: Runs task 1 by performing regular expression on the colours.txt file to get all
 # valid colour codes and passes them to task-1.exe to append 'ff' for the alpha value
@@ -58,4 +58,4 @@ run-task-3: run-task-1 build-task-3
 
 # Clears the enviornment from old files
 clear:
-	rm ./build/* && rm rgba-colours.txt && rm colours-valid.txt
+	rm -f ./build/* rgba-colours.txt colours-valid.txt

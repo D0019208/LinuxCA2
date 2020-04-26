@@ -3,7 +3,7 @@ FLAGS = -Wall -Wextra -Wpedantic
 
 # Command to build task-5.c
 build-task-5: task-5.c
-	${CC} ./task-5.c -o ./build/task-5 ${FLAGS}
+	mkdir -p build && ${CC} ./task-5.c -o ./build/task-5 ${FLAGS}
 
 # Display last 10 lines of the access.log file and print a new line (for aesthetic reasons)
 run-task-1:
@@ -37,4 +37,4 @@ run-task-5: build-task-5
 
 # Clears the enviornment from old files
 clear:
-	rm access.ie.log && rm ./build/* && rm ./temp.txt
+	rm -f access.ie.log ./build/* ./temp.txt

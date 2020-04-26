@@ -24,5 +24,5 @@ run-task-4: run-task-3
 
 # Cleaers the enviornment from old files
 clear:
-	rm dkit.html mangled.txt
+	rm -f dkit.html mangled.txt
 
