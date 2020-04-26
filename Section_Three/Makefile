@@ -17,7 +17,7 @@ run-task-2:
 # Runs task 3, I use 'cat' to read 'access.log' file, then I use 'grep' to find lines with 404 status
 # and then I use grep again to only print the 'REQUEST' part, I filter it using regex
 run-task-3:
-	cat ./access.log | grep -h '[4][0][4]' | grep -E -o '\"[A-Za-z0-9 /.-]+\"'
+	cat ./access.log | grep -h '[4][0][4][ ]' | grep -E -o '\"[A-Za-z0-9 /.-]+\"'
 
 # Runs task 4, I use 'grep' to read lines with 'Trident' in it,
 # as Trident is a proprietary browser engine for the Microsoft Windows version of Internet Explorer,
