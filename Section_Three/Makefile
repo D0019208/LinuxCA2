@@ -33,8 +33,8 @@ run-task-4:
 # then I use 'rm' to delete 'temp1', 'temp2', 'temp3' and 'temp4' files
 # and finally using 'cat' I open 'temp.txt' file and I build task-5
 run-task-5: build-task-5
-	grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort > temp1.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '\"[A-Za-z0-9 /.-]+\"[ ][0-9][0-9][0-9][ ][0-9][ ]["]' | sort | grep -o '[0-9][ ]["]' | grep -o '[0-9]' > temp2.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort | uniq -c | grep -E -o '[/]([A-Za-z0-9]){1,20}' > temp3.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort | uniq -c | grep -o [0-9] > temp4.txt && cat temp1.txt temp2.txt temp3.txt temp4.txt > temp.txt && rm temp1.txt temp2.txt temp3.txt temp4.txt && cat temp.txt | ./build/task-5
+	grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort > temp1.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '\"[A-Za-z0-9 /.-]+\"[ ][0-9][0-9][0-9][ ][0-9][ ]["]' | sort | grep -o '[0-9][ ]["]' | grep -o '[0-9]' > temp2.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort | uniq -c | grep -E -o '[/]([A-Za-z0-9]){1,20}' > temp3.txt && grep -h '[5-9][ ]["]' access.log | grep -E -o '[G][E][T][ ][/]([A-Za-z0-9]){1,20}' | grep -E -o '[/]([A-Za-z0-9]){1,20}' | sort | uniq -c | grep -o [0-9] > temp4.txt && cat temp1.txt temp2.txt temp3.txt temp4.txt > temp.txt && rm temp1.txt temp2.txt temp3.txt temp4.txt && cat temp.txt | ./build/task-5 && rm temp.txt
 
 # Clears the enviornment from old files
 clear:
-	rm access.ie.log
+	rm access.ie.log && rm ./build/* && rm ./temp.txt
