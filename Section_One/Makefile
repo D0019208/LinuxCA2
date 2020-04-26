@@ -1,10 +1,6 @@
 CC = gcc
 FLAGS = -Wall -Wextra -Wpedantic
 
-# Syntax:
-# target: dependencies
-# 	command
-
 # Runs task 1, generates the string and counts the number of words in this string
 run-task-1:
 	printf "The quick brown fox jumps over the lazy dog\n" | wc -w

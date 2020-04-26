@@ -2,10 +2,6 @@ CC = gcc
 FLAGS = -Wall -Wextra -Wpedantic
 SECTION_TWO_PATH = ~/ca2/Section_Two
 
-# Syntax:
-# target: dependencies
-# 	command
-
 # Description: Command to build task-1.c
 #
 # Requirements: task-1.c
