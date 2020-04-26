@@ -30,7 +30,7 @@ build-task-3: task-3.c
 #
 # Requirements: Task 1 must be built.
 run-task-1: build-task-1
-	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1
+	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 > colours-valid.txt && cat ./colours-valid.txt
 
 # Description: Runs task 2 by utilizing task 1 to get all valid colour codes, append 'ff'.
 #              We then get the green value using 'cut', the results then being passed to task-2.exe
@@ -38,12 +38,12 @@ run-task-1: build-task-1
 #
 # Requirements: Task 1 and 2 must both be built.
 
-run-task-2: build-task-1 build-task-2
-	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 | cut -c4-5 | ./build/task-2
+run-task-2: run-task-1 build-task-2
+	cat ./colours-valid.txt | cut -c4-5 | ./build/task-2 && rm colours-valid.txt
 
-run-task-3: build-task-1 build-task-3
-	cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 | cut -c2-3 > temp.txt && cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 | cut -c4-5 >> temp.txt && cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 | cut -c6-7 >> temp.txt && cat ./colours.txt | grep -E -i '#([A-F0-9]{6}|[A-F0-9]{8})$$' | ./build/task-1 | cut -c8-9 >> temp.txt && cat temp.txt | ./build/task-3 | sort -k4 > rgba-colours.txt && rm temp.txt && ls
+run-task-3: run-task-1 build-task-3
+	cat ./colours-valid.txt | cut -c2-3 > temp.txt && cat ./colours-valid.txt | cut -c4-5 >> temp.txt && cat ./colours-valid.txt | cut -c6-7 >> temp.txt && cat ./colours-valid.txt | cut -c8-9 >> temp.txt && cat temp.txt | ./build/task-3 | sort -k4 > rgba-colours.txt && rm temp.txt && rm colours-valid.txt && ls
 
 # Clears the enviornment from old files
 clear:
-	rm ./build/* && rm rgba-colours.txt
+	rm ./build/* && rm rgba-colours.txt && rm colours-valid.txt
