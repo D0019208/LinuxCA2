@@ -53,7 +53,7 @@ run-task-2: create-colours-valid build-task-2
 # 'sort' tool and sorted by the fourth column (sort -k4).
 #
 # Requirements: Task 1 and 3 must be built.
-run-task-3: run-task-1 build-task-3
+run-task-3: create-colours-valid build-task-3
 	cat ./colours-valid.txt | cut -c2-3 > temp.txt && cat ./colours-valid.txt | cut -c4-5 >> temp.txt && cat ./colours-valid.txt | cut -c6-7 >> temp.txt && cat ./colours-valid.txt | cut -c8-9 >> temp.txt && cat temp.txt | ./build/task-3 | sort -k4 > rgba-colours.txt && rm temp.txt && rm colours-valid.txt && ls
 
 # Clears the enviornment from old files
